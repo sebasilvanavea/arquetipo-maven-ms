@@ -1,0 +1,89 @@
+######
+# Configuracion Base de Spring
+######
+
+spring:
+  application:
+    name: @project.artifactId@
+  cloud:
+    openfeign:
+      micrometer:
+        enabled: true
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+
+startup:
+  beans:
+    inspect: true
+
+######
+# Configuracion documentacion Swagger
+######
+swagger:
+  info:
+    name: @project.artifactId@
+    description: @project.description@
+    version: @project.version@
+    contact:
+      name: Lider Técnico
+      mail: lidertecnico@bancochile.cl
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    try-it-out-enabled: false
+
+######
+# Configuracion endpoints Actuator
+######
+management:
+  health:
+    kubernetes:
+      enabled: true
+  info:
+    kubernetes:
+      enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoint:
+    health:
+      enabled: true
+      show-details: ALWAYS
+    info:
+      enabled: true
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+      exposure:
+        include:
+          - health
+          - info
+          - prometheus
+
+######
+# Configuracion Logging
+######
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:}]'
+  level:
+    root: DEBUG
+    io:
+      micrometer:
+        dynatrace: OFF
+        registry:
+          otlp: OFF
+    ohttp3:
+      internal:
+        concurrent: OFF
