@@ -1,0 +1,1 @@
+# arquetipo-maven-ms
